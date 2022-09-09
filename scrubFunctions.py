@@ -9,8 +9,7 @@ def clean(file):
     #Looks for bad pieces of data and removes them automagically
     noNull = file.dropna()
     #^make inplace=True if you want to edit the original dataset. This currently creates a new var with no null values
-    if file.duplicated():
-        cleaned = noNull.drop_duplicates()
+    cleaned = noNull.drop_duplicates()
     return cleaned
 
 #can also later make functions to replace empty values with averages rather then just delete them, detect misentered data, etc.

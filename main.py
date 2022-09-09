@@ -8,4 +8,11 @@ import scrubFunctions as scrub
 raw = scrub.load("survey lung cancer.csv")
 df = scrub.clean(raw)
 
-
+def separateGenders(df):
+    dfMale = df[df['GENDER'] == "M"]
+    dfFemale = df[df['GENDER'] == "F"]
+    print(dfMale)
+    print("\n")
+    print(dfFemale)
+    
+separateGenders(df)
