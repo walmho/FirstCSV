@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import scrubFunctions as scrub
+import numpy as np
 
 # https://www.w3schools.com/python/pandas/pandas_cleaning_empty_cells.asp
 # Pretty cool stuff
@@ -27,13 +28,13 @@ def separateSmokers(df):
     print("\n")
     print(dfNo)
 
-def graphDataPts(df, x, y, gender):
+def graphDataPts(df, kind, x, y, gender):
     print(df)
     
-    df.plot()
+    df.plot(kind)
     plt.title(gender)
 
 M, F = separateGenders(df)
-graphDataPts(M, 'SMOKING', 'ALCOHOL CONSUMED', gender="Male")
-graphDataPts(F, 'SMOKING', 'ALCOHOL CONSUMED', gender="Female")
+graphDataPts(M, 'bar', 'SMOKING', list[0, 100], gender="Male")
+graphDataPts(F, 'bar', 'SMOKING', list[0, 100], gender="Female")
 #separateSmokers(df)
