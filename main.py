@@ -34,22 +34,20 @@ def graphDataPts(w):
     #correctly analyze... I hope. Idk what I'm really doing
     
     #y-axis SHOULD chart amt of lung cancer occurences per each age, I can only sort from y-> a at this point
-    M.sort_values(["AGE"], axis=0, ascending=False, inplace=True)
+    M.sort_values(["AGE"], axis=0, ascending=True, inplace=True)
     occurenceCtM = M["AGE"].value_counts()
-
+    occurenceCtM.sort_values(axis=0, ascending=True, inplace=True)
     plt.figure(0)
     occurenceCtM.plot(kind='bar', color='blue')
-
     plt.title('Lung Cancer in Males')
     plt.xlabel('Age')
     plt.ylabel('# Of Occurences')
     
-    F.sort_values(["AGE"], axis=0, ascending=False, inplace=True)
+    F.sort_values(["AGE"], axis=0, ascending=True, inplace=True)
     occurenceCtF = F["AGE"].value_counts()
-
+    occurenceCtF.sort_values(axis=0, ascending=True, inplace=True)
     plt.figure(1)
     occurenceCtF.plot(kind='bar', color='pink')
-
     plt.title('Lung Cancer in Females')
     plt.xlabel('Age')
     plt.ylabel('Logged lung cancer')
