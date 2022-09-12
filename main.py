@@ -14,11 +14,7 @@ df = scrub.clean(raw)
 def separateGenders(df):
     dfMale = df[df['GENDER'] == "M"]
     dfFemale = df[df['GENDER'] == "F"]
-    
-    # print(dfMale)
-    # print("\n")
-    # print(dfFemale)
-    
+
     return dfMale, dfFemale
     
 def separateSmokers(df):
@@ -30,34 +26,39 @@ def separateSmokers(df):
     print("\n")
     print(dfNo)
 
-def graphDataPts(df, width=0.1):
+def graphDataPts(w):
     #1) Isolate and create two new subsets within each gender: those who got lung cancer and those who didn't
     #2) Make a plot for each subset showing how many in either subset had or didn't have an attribute
     
     #Current problem is that cancerTrueM is only columns, doesn't contain neccesary data in rows. Once that problem is fixed this should
     #correctly analyze... I hope. Idk what I'm really doing
+    
+    #y-axis SHOULD chart amt of lung cancer occurences per each age, I can only sort from y-> a at this point
+    M.sort_values(["AGE"], axis=0, ascending=False, inplace=True)
+    occurenceCtM = M["AGE"].value_counts()
 
-    cancerTrueM = M.loc[M['LUNG_CANCER'] == "2"]
-    print(cancerTrueM)
-    print(cancerTrueM['AGE'])
-    print(cancerTrueM['LUNG_CANCER'])
+    plt.figure(0)
+    occurenceCtM.plot(kind='bar', color='blue')
 
-    plt.bar(cancerTrueM['AGE'], cancerTrueM['LUNG_CANCER'], color='blue')
     plt.title('Lung Cancer in Males')
     plt.xlabel('Age')
-    plt.ylabel('Logged lung cancer')
-    plt.figure(0)
+    plt.ylabel('# Of Occurences')
     
-    # plt.bar(F['AGE'], F['LUNG_CANCER'], color='pink')
-    # plt.title('Lung Cancer in Females')
-    # plt.xlabel('Age')
-    # plt.ylabel('Logged lung cancer')
-    # plt.figure(1)
+    F.sort_values(["AGE"], axis=0, ascending=False, inplace=True)
+    occurenceCtF = F["AGE"].value_counts()
 
-M, F = separateGenders(df)
+    plt.figure(1)
+    occurenceCtF.plot(kind='bar', color='pink')
+
+    plt.title('Lung Cancer in Females')
+    plt.xlabel('Age')
+    plt.ylabel('Logged lung cancer')
+    plt.figure(1)
 
 df['LUNG_CANCER'] = df['LUNG_CANCER'].replace({'YES': '2'})
 df['LUNG_CANCER'] = df['LUNG_CANCER'].replace({'NO': '1'})
 
-graphDataPts(df)
+M, F = separateGenders(df)
+
+graphDataPts(0.3)
 plt.show()
