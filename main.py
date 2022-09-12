@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import scrubFunctions as scrub
 import numpy as np
 
+pd.options.mode.chained_assignment = None  # default='warn'
+
 # https://www.w3schools.com/python/pandas/pandas_cleaning_empty_cells.asp
 # Pretty cool stuff
 
@@ -13,9 +15,9 @@ def separateGenders(df):
     dfMale = df[df['GENDER'] == "M"]
     dfFemale = df[df['GENDER'] == "F"]
     
-    print(dfMale)
-    print("\n")
-    print(dfFemale)
+    # print(dfMale)
+    # print("\n")
+    # print(dfFemale)
     
     return dfMale, dfFemale
     
@@ -28,13 +30,19 @@ def separateSmokers(df):
     print("\n")
     print(dfNo)
 
-def graphDataPts(df, kind, x, y, gender):
-    print(df)
-    
-    df.plot(kind)
-    plt.title(gender)
+def graphDataPts(df, x, y, gender, width=0.1):
+    print(x)
+    print("\n\n")
+    print(y)
+
+    plt.bar(x, y)
+    plt.title("Data for {}".format(gender))
 
 M, F = separateGenders(df)
-graphDataPts(M, 'bar', 'SMOKING', list[0, 100], gender="Male")
-graphDataPts(F, 'bar', 'SMOKING', list[0, 100], gender="Female")
-#separateSmokers(df)
+
+df['LUNG_CANCER'] = df['LUNG_CANCER'].replace({'YES': '2'})
+df['LUNG_CANCER'] = df['LUNG_CANCER'].replace({'NO': '1'})
+y = df['LUNG_CANCER']
+
+graphDataPts(df, df['SMOKING'], y, M)
+plt.show()
