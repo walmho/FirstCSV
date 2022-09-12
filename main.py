@@ -30,19 +30,34 @@ def separateSmokers(df):
     print("\n")
     print(dfNo)
 
-def graphDataPts(df, x, y, gender, width=0.1):
-    print(x)
-    print("\n\n")
-    print(y)
+def graphDataPts(df, width=0.1):
+    #1) Isolate and create two new subsets within each gender: those who got lung cancer and those who didn't
+    #2) Make a plot for each subset showing how many in either subset had or didn't have an attribute
+    
+    #Current problem is that cancerTrueM is only columns, doesn't contain neccesary data in rows. Once that problem is fixed this should
+    #correctly analyze... I hope. Idk what I'm really doing
 
-    plt.bar(x, y)
-    plt.title("Data for {}".format(gender))
+    cancerTrueM = M.loc[M['LUNG_CANCER'] == "2"]
+    print(cancerTrueM)
+    print(cancerTrueM['AGE'])
+    print(cancerTrueM['LUNG_CANCER'])
+
+    plt.bar(cancerTrueM['AGE'], cancerTrueM['LUNG_CANCER'], color='blue')
+    plt.title('Lung Cancer in Males')
+    plt.xlabel('Age')
+    plt.ylabel('Logged lung cancer')
+    plt.figure(0)
+    
+    # plt.bar(F['AGE'], F['LUNG_CANCER'], color='pink')
+    # plt.title('Lung Cancer in Females')
+    # plt.xlabel('Age')
+    # plt.ylabel('Logged lung cancer')
+    # plt.figure(1)
 
 M, F = separateGenders(df)
 
 df['LUNG_CANCER'] = df['LUNG_CANCER'].replace({'YES': '2'})
 df['LUNG_CANCER'] = df['LUNG_CANCER'].replace({'NO': '1'})
-y = df['LUNG_CANCER']
 
-graphDataPts(df, df['SMOKING'], y, M)
+graphDataPts(df)
 plt.show()
