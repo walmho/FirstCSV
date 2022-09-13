@@ -30,9 +30,19 @@ def graphDataPts(w):
     #1) Isolate and create two new subsets within each gender: those who got lung cancer and those who didn't
     #2) Make a plot for each subset showing how many in either subset had or didn't have an attribute
     
-    occurenceCtM = (M["AGE"].value_counts())
+    #y-axis SHOULD chart amt of lung cancer occurences per each age, I can only sort from y-> a at this point
+    #M.sort_values(["AGE"], axis=0, ascending=True, inplace=True)
+    minimum = M["AGE"].min()
+    maximum = M["AGE"].max()
+    #M.sort_values(["AGE"], axis=0, ascending=True, inplace=True)
+    occurenceCtM = (M["AGE"].value_counts()).sort_index(axis=0, ascending=True, inplace=False)
+    print(type(occurenceCtM))
+    x = occurenceCtM.sort_index(axis=0, ascending=True, inplace=True)
+    print(type(x))
 
     plt.figure(0)
+
+    #plt.bar(np.arange(minimum, maximum+1), occurenceCtM)
     occurenceCtM.plot(kind='bar', color='blue')
 
     plt.title('Lung Cancer in Males')
