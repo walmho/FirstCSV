@@ -14,4 +14,5 @@ def clean(file):
     #cleaned = noNull.drop_duplicates()
     return noNull
 
-# can also later make functions to replace empty values with averages rather then just delete them, detect misentered data, etc.
+# can also later make functions to replace empty values with averages rather then just delete them, detect misentered data, etc. Most of this needs
+# to be practiced with a dataset that is purposefully made wrong, just to make sure that the values are being cleaned correctly
